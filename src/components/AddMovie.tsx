@@ -46,9 +46,12 @@ const AddMovie: React.FC = () => {
         setLoading(true);
         setError(null);
         setSuccess(false);
-
+    
+        // Establece el ID a 0 en la película antes de agregarla
+        const movieWithId = { ...movie, id: 0 };
+    
         try {
-            await addMovie(movie);
+            await addMovie(movieWithId);
             setSuccess(true);
             setMovie({
                 id: 0,
@@ -65,7 +68,7 @@ const AddMovie: React.FC = () => {
             setLoading(false);
         }
     };
-
+    
     return (
         <div className="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen p-8 flex items-center justify-center">
             <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all hover:scale-102 hover:shadow-3xl">
