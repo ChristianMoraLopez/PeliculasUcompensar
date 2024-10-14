@@ -1,7 +1,28 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "target": "esnext",                             // Versión de ECMAScript que deseas usar
+    "module": "commonjs",                           // Sistema de módulos a usar
+    "lib": ["dom", "dom.iterable", "esnext"],      // Bibliotecas que necesitas
+    "allowJs": true,                                // Permitir archivos JavaScript
+    "skipLibCheck": true,                           // Omitir chequeo de tipos en archivos de definición de tipo
+    "strict": true,                                 // Habilitar todas las opciones de verificación estricta
+    "forceConsistentCasingInFileNames": true,      // Asegurar consistencia en los nombres de archivo
+    "noEmit": true,                                 // No emitir archivos de salida
+    "esModuleInterop": true,                        // Habilitar interoperabilidad de módulos ES
+    "moduleResolution": "node",                      // Estrategia de resolución de módulos
+    "resolveJsonModule": true,                      // Permitir importar archivos JSON
+    "isolatedModules": true,                         // Aislar módulos para compilación
+    "jsx": "react-jsx",                             // Permitir el uso de JSX en archivos .tsx
+    "allowSyntheticDefaultImports": true,           // Permitir importaciones sintéticas por defecto
+    "baseUrl": ".",                                 // Base URL para la resolución de módulos
+    "paths": {                                      // Configuración de rutas
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@src/*": ["src/*"],
+    }
+  },
+  "include": ["src"],                               // Incluir la carpeta src
+  "exclude": ["node_modules"]                       // Excluir la carpeta node_modules
 }
