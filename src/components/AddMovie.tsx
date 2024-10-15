@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
-import { useMovies } from '@hooks/useMovies';
+import { useMoviesAndReviews, MovieInput } from '@hooks/useMovies';
 import { PlusCircle, Star, Calendar, Link, Film, FileText } from 'lucide-react';
 
-interface MovieInput {
-    id: number;
-    title: string;
-    review: string;
-    trailer: string;
-    release: string;
-    rating: number;
-    poster: string;
-}
-
 const AddMovie: React.FC = () => {
-    const { addMovie } = useMovies('');
+    const { addMovie } = useMoviesAndReviews('');
     const [movie, setMovie] = useState<MovieInput>({
-        id: 0,
         title: '',
         review: '',
         trailer: '',
@@ -34,7 +23,7 @@ const AddMovie: React.FC = () => {
             const ratingValue = parseFloat(value);
             setMovie(prev => ({
                 ...prev,
-                [name]: ratingValue > 5 ? 5 : ratingValue
+                [name]: isNaN(ratingValue) ? 0 : Math.min(Math.max(ratingValue, 0), 5)
             }));
         } else {
             setMovie(prev => ({ ...prev, [name]: value }));
@@ -47,14 +36,10 @@ const AddMovie: React.FC = () => {
         setError(null);
         setSuccess(false);
     
-        // Establece el ID a 0 en la película antes de agregarla
-        const movieWithId = { ...movie, id: 0 };
-    
         try {
-            await addMovie(movieWithId);
+            await addMovie(movie);
             setSuccess(true);
             setMovie({
-                id: 0,
                 title: '',
                 review: '',
                 trailer: '',

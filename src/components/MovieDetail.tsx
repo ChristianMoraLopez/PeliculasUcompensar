@@ -4,6 +4,7 @@ import { Star, Calendar, PlayCircle, Pause } from 'lucide-react';
 import { supabase } from '@hooks/useClient';
 import Button from '@components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
+import ReviewSection from '@components/reviewSection';
 
 interface MovieDetails {
   id: number;
@@ -97,7 +98,7 @@ const MovieDetail: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-100 min-h-screen">
       <Card className="overflow-hidden shadow-2xl">
-        <div className="md:flex flex-col lg:flex-row">
+        <div className="lg:flex">
           <div className="lg:w-1/2 relative">
             <img 
               className="w-full h-full object-cover" 
@@ -116,26 +117,26 @@ const MovieDetail: React.FC = () => {
           </div>
           <div className="lg:w-1/2 bg-white">
             <CardHeader className="bg-gray-50 border-b border-gray-200 p-8">
-              <CardTitle className="text-5xl font-bold text-gray-800 mb-6">{movie.title}</CardTitle>
-              <div className="flex items-center space-x-6">
-                <div className="flex items-center bg-yellow-100 px-4 py-2 rounded-full">
-                  <Star className="h-6 w-6 text-yellow-500 mr-2" />
-                  <span className="text-2xl font-semibold text-gray-800">{movie.rating.toFixed(1)}</span>
+              <CardTitle className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">{movie.title}</CardTitle>
+              <div className="flex flex-wrap items-center space-x-4 md:space-x-6">
+                <div className="flex items-center bg-yellow-100 px-4 py-2 rounded-full mb-2 md:mb-0">
+                  <Star className="h-5 w-5 md:h-6 md:w-6 text-yellow-500 mr-2" />
+                  <span className="text-xl md:text-2xl font-semibold text-gray-800">{movie.rating.toFixed(1)}</span>
                 </div>
                 <div className="flex items-center bg-blue-100 px-4 py-2 rounded-full">
-                  <Calendar className="h-6 w-6 text-blue-500 mr-2" />
-                  <span className="text-lg text-gray-800">{movie.releaseDate}</span>
+                  <Calendar className="h-5 w-5 md:h-6 md:w-6 text-blue-500 mr-2" />
+                  <span className="text-md md:text-lg text-gray-800">{movie.releaseDate}</span>
                 </div>
               </div>
             </CardHeader>
             <CardContent className="p-8">
-              <h2 className="text-3xl font-semibold mb-6 text-gray-700">Review</h2>
-              <p className="text-gray-600 leading-relaxed text-lg mb-8">{movie.review}</p>
+              <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-700">Review</h2>
+              <p className="text-gray-600 leading-relaxed text-base md:text-lg mb-8">{movie.review}</p>
             </CardContent>
           </div>
         </div>
         {isPlaying && (
-          <div className="w-full bg-black p-8">
+          <div className="w-full bg-black p-4 md:p-8">
             <div className="aspect-w-16 aspect-h-9">
               <iframe
                 src={getYoutubeEmbedUrl(movie.trailer)}
@@ -148,6 +149,7 @@ const MovieDetail: React.FC = () => {
           </div>
         )}
       </Card>
+      <ReviewSection movieId={movie.id} />
     </div>
   );
 };
